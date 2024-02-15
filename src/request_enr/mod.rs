@@ -52,6 +52,7 @@ pub async fn run(req: &RequestEnr) {
 // Print various information about the obtained ENR.
 fn print_enr(enr: enr::Enr<enr::CombinedKey>) {
     log::info!("ENR Found:");
+    log::info!("ENR Key:{}", enr.to_base64());
     log::info!("Sequence No:{}", enr.seq());
     log::info!("NodeId:{}", enr.node_id());
     log::info!("Libp2p PeerId:{}", enr.peer_id());
