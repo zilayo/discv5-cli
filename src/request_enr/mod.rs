@@ -1,4 +1,7 @@
-use discv5::{enr, ListenConfig};
+use discv5::{
+    enr::{self, EnrPublicKey},
+    ListenConfig,
+};
 use libp2p_core::Multiaddr;
 
 mod enr_ext;
@@ -51,8 +54,12 @@ pub async fn run(req: &RequestEnr) {
 
 // Print various information about the obtained ENR.
 fn print_enr(enr: enr::Enr<enr::CombinedKey>) {
+    let public_key = enr.public_key().encode_uncompressed();
+    let public_key = hex::encode(public_key);
+
     log::info!("ENR Found:");
     log::info!("ENR Key:{}", enr.to_base64());
+    log::info!("ENR Public Key:{}", public_key);
     log::info!("Sequence No:{}", enr.seq());
     log::info!("NodeId:{}", enr.node_id());
     log::info!("Libp2p PeerId:{}", enr.peer_id());
